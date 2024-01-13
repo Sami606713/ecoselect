@@ -1,0 +1,136 @@
+/*Navbar*/
+    .form-control {
+    border: 1px solid white;
+    background-color: whitesmoke;
+    color: white;
+  }
+  
+  .btn-outline-light {
+    color: black;
+    border-color: white;
+  }
+  
+  /*End of Navbar*/
+  
+  /* Slider  */
+    .slider {
+    width: 100%;
+  /*  height: 10;*/
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .image-container {
+    display: flex;
+    width: 500%; /* adjust for container width */
+    transition: transform 0.5s ease-in-out;
+    transform: translateX(0);
+  }
+  
+  .image-container img {
+    width: 100%; /* adjust based on image aspect ratio */
+    object-fit: cover;
+  }
+  
+  .image-container img.active {
+    opacity: 1;
+  }
+  
+  .navigation button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+  
+  .navigation button:hover {
+    opacity: 0.7;
+  }
+  
+  .prev {
+    left: 0;
+  }
+  
+  .next {
+    right: 0;
+  }
+  /*End of Slider*/
+  
+  
+  /*card*/
+  .product-container{
+    margin: 20px;
+  }
+  .product-card {
+    list-style: none;
+    display: inline-block;
+    width: 200px; /* Set a fixed width for each product card */
+    margin: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* .product-image {
+      text-align: center;
+      padding: 10px;
+    } */
+    
+    .product-image img {
+      width: 100%; /* Ensures the image takes the full width of its container */
+      height: auto; /* Allows the image to maintain its aspect ratio */
+      max-height: 200px; /* Set a max height to ensure uniformity */
+      object-fit: cover; /* Ensures the image covers the entire container */
+  }
+   
+  /* Overlay styles for the eye icon */
+.overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+}
+    
+.product-card:hover .product-link {
+    opacity: 1;
+}
+    
+.product-link i {
+    color: #fff;
+    font-size: 20px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    }
+    
+    .product-info {
+      padding: 10px;
+    }
+    
+    .product-name {
+      text-decoration: none;
+      color: orange;
+  }
+  
+  .product-price {
+      color: red;
+      font-weight: bold;
+      margin-top: 5px;
+  }
+
+  /*card*/
+
+  /* Contact Form */
+
+
+  

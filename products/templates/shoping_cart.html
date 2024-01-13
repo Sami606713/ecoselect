@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% block title%}Cart{% endblock %}
+{% block body %}
+{% load static %}
+<div class="container mx-auto my-8">
+    <!-- Cart Table -->
+    <div class="grid grid-cols-4 bg-white-500 rounded-md ">
+        <!-- Column Headings -->
+        <div class="col-span-4 bg-white-500 p-4 ">
+            <div class="grid grid-cols-4 shadow-md p-4 mb-2 font-bold ">
+                <div>Product</div>
+                <div>Price</div>
+                <div>Quantity</div>
+                <div>Subtotal</div>
+            </div>
+        </div>
+        <!-- Cart Items -->
+        <div class="col-span-4 p-4" id="items">
+            <!-- javascript handle -->
+        </div>
+        <!-- Back to Shop Button -->
+        <div class="col-span-2 p-4">
+            <a href="/">
+            <button class="bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4">Back to Shop</button>
+            </a>
+        </div>
+        <!-- Update Cart Button -->
+        <div class="col-span-2 p-4 text-right">
+            <button id="update_btn" class="bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-green-500 border border-black-500 p-4 update">Update Cart</button>
+        </div>
+    </div>
+
+    <!-- Cart Total -->
+    <div class="flex justify-end my-8">
+        <div class="w-96 bg-white rounded-md shadow-md p-4 border border-black-500 p-4">
+            <h2 class="text-lg font-semibold mb-4">Cart Total</h2>
+            <div class="flex justify-between mb-2">
+                <span>Subtotal:</span>
+                <span id="sub_total">$244</span>
+            </div>
+            <hr>
+
+            <div class="flex justify-between mb-2">
+                <span>Total:</span>
+                <span id="total">$300</span>
+            </div>
+            <hr>
+            <!-- Process to Checkout Button -->
+            <div class="text-center mt-4">
+               <a href="/product/address"> <button class="bg-red-500 text-white py-2 hover:text-white px-4 rounded hover:bg-blue-600">Proceed to Checkout</button></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+{% block js %}
+<script>
+cart=JSON.parse(localStorage.getItem("cart"))
+let total=0
+if (cart==null) {
+    document.getElementById("items").innerHTML+=`
+            <div class="grid grid-cols-4 mb-3 mt-0 shadow-md p-2 font-semibold h-20" id="product">
+                <div class="flex items-center">
+                    <!-- Add your product image source here -->
+                    <h1 text-lg font-bold mb-4 text-black py-2>No item in Cart</h1>
+                </div>
+            </div>`
+}else{
+
+for(const item in cart){
+    // console.log(cart[i][0]);
+    let name=cart[item][0]
+    let quantity=parseInt(cart[item][1])
+    let price=parseInt(cart[item][2])
+    let img=cart[item][3]
+
+    // console.log(typeof(name),typeof(quantity),typeof(price),typeof(img));
+
+    total+=price*quantity
+
+    document.getElementById("items").innerHTML+=`
+            <div class="grid grid-cols-4 mb-3 mt-0 shadow-md p-2 font-semibold h-20" id="product">
+                <div class="flex items-center">
+                    <!-- Add your product image source here -->
+                    <img src="${img}" alt="Product Image" class="w-8 h-8 rounded mr-2">
+                    <div>
+                        ${name}
+                    </div>
+                </div>
+                    <div>
+                        ${price} 
+                    </div>
+                    <div>
+                        <input type="number" id="pr${item}" class="w-16 border rounded p-1" value="${quantity}" min="1" max="5">
+                    </div>
+                    <div id=total${item}>${price*quantity}</div>
+                </div>
+                  ` 
+    }
+}
+document.getElementById("total").innerHTML=total
+document.getElementById("sub_total").innerHTML=total
+
+// console.log(document.getElementById("cart"));
+document.getElementById("cart").innerHTML=Object.keys(cart).length
+
+$(".update").click(function(){
+console.log("update clicked");
+for(let item in cart){
+    console.log(document.getElementById("pr"+item).value);
+    let new_quantity=document.getElementById("pr"+item).value
+    console.log(cart[item][1]);
+    if (new_quantity<=0) {
+        new_quantity=1
+    }
+    else{
+        try{
+        cart[item][1]=new_quantity
+        // cart[item][2]=new_price
+        console.log(cart[item][1]);
+        const update_cart=JSON.stringify(cart)
+
+        localStorage.setItem("cart",update_cart)
+        // console.log("update successfull");
+    }
+   catch{
+    console.log("error");
+   }
+
+    }
+    
+}
+}); 
+</script>
+<script>
+    document.getElementById('update_btn').addEventListener('click', function() {
+      location.reload();
+    });
+</script>
+{% endblock %}

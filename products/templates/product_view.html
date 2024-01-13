@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{fetch_product.name}}Product View {% endblock %}
+
+{% block body %}
+<div class="max-w-4xl mx-auto bg-white p-4 md:p-8 rounded-md shadow-md flex flex-col md:flex-row items-center justify-center md:margin-top:p-8" style="margin-top: 25px;">
+
+    <!-- Left Side: Smaller Images -->
+    <div class="flex flex-wrap justify-center md:justify-start mb-4 md:mb-0 md:mr-8" style="margin-right: 0.5rem margin-top">
+        <!-- Four smaller images at different angles -->
+        {% for image in image_url %}
+        <img src="{{ image }}" id="{{image|length}}" alt="image{{image|length}}" class="mb-2 md:mr-2 rounded small-image h-14">
+        {% endfor %}
+    </div>
+    <!-- Main Image in the Center -->
+    <div class="flex items-center justify-center mb-4 md:mb-0">
+        <img src="{{image_url.0}}" id="main" alt="Main Product Image" class="rounded main-image h-64" style="width: 56rem;">
+    </div>
+    <!-- Right Side: Description -->
+    <div class="flex flex-col justify-center ml-4 md:ml-8">
+        <h2 class="text-lg md:text-xl font-semibold mb-2" id="name">{{fetch_product.name}}</h2>
+        <!-- Product Rating -->
+        <div class="flex items-center mb-2 md:mb-4">
+            <span class="text-yellow-500">★</span>
+            <span class="text-yellow-500">★</span>
+            <span class="text-yellow-500">★</span>
+            <span class="text-yellow-500">☆</span>
+            <span class="text-yellow-500">☆</span>
+            <span class="ml-2 text-sm md:text-base text-gray-500">5 Reviews</span>
+        </div>
+        <!-- Product Price -->
+        <div class="flex items-center mb-2 md:mb-4">
+            <span class="text-lg md:text-xl font-semibold mr-2" id="price">{{fetch_product.price}}</span>
+        </div>
+        
+        <p class="text-gray-600 mb-4" id="desc">{{fetch_product.description}}Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.</p>
+
+        <hr>
+         <!-- Quantity Selector -->
+         <div class="flex items-center mb-4 mt-4">
+            <button class="bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-red-500 border border-black-500 p-4" id="minus">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                </svg>
+            </button>
+
+            <!-- Quantity Display -->
+            <span class="mx-2 text-gray-800" id="qty">1</span>
+
+            <!-- Plus Button -->
+            <button class="bg-white-500 text-black py-2 hover:text-white px-4 rounded hover:bg-red-500 border border-black-500 p-4" id="plus">
+                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+            </button>
+
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2" id="single_item">Buy Now</button>
+            <!-- Pop over content -->
+
+            <!-- End pop over -->
+            <div id="popover" class="fixed inset-0 flex items-center justify-center hidden">
+                <!-- Popover Content -->
+                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
+                    <!-- Close Button -->
+                    <button id="closePopover" class="absolute top-3 right-3 text-gray-600 hover:text-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Product Details -->
+                    <img src="https://source.unsplash.com/400x300/?ecommerce" alt="Product Image" id="popimg" class="mt-4 rounded-md">
+                    <h2 class="text-xl font-semibold mb-4" id="pop_text">jenes</h2>
+                    <p id="pop_qty" class="text-black  rounded hover:bg-green-500  ">1</p>
+                    <p id="pop_price" class="text-black rounded hover:bg-green-500 ">Price: $50</p>
+                    <p id="pop_total" class="text-black rounded hover:bg-green-500 ">Price: $50</p>
+                    
+                    <!-- Place order button -->
+                    <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2" id="pop_btn">Place Order</button>
+                    
+                </div>
+            </div>
+            <!-- Add to cart btn -->
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 cart" id=item{{fetch_product.name}}>Add to cart</button>
+        </div>
+
+        <!-- Buy Now Button -->
+        <!-- <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" id="single_item">Buy Now</button> -->
+    </div>
+</div>
+{%endblock %}
+
+
+
+{% block js%}
+<script>
+let image={{image_url|safe}}
+for (let i=0;i<image.length;i++) {
+
+    // console.log(image[i].length);
+    $("#"+image[i].length).click(function () {
+
+    img_url=document.getElementById(image[i].length).src
+
+    document.getElementById("main").src=img_url 
+})
+}
+
+</script>
+<script>
+// Popover show
+$("#single_item").click(function() {
+    const singleItemButton = document.getElementById('single_item');
+        const popover = document.getElementById('popover');
+        const closePopoverButton = document.getElementById('closePopover');
+
+        // Show popover when button is clicked
+        singleItemButton.addEventListener('click', function() {
+            popover.classList.remove('hidden');
+        });
+
+        // Hide popover when close button is clicked
+        closePopoverButton.addEventListener('click', function() {
+            popover.classList.add('hidden');
+        });
+
+        // Hide popover when user clicks outside of it
+        window.addEventListener('click', function(event) {
+            if (event.target === popover) {
+                popover.classList.add('hidden');
+            }
+        });
+
+        // Changing pop over content
+        // image
+        img_url=document.getElementById("main").src
+        document.getElementById("popimg").src=img_url
+
+        // name
+        name=document.getElementById("name").innerHTML
+        document.getElementById("pop_text").innerHTML=name
+
+        // quantity
+        quantity=document.getElementById("qty").innerHTML
+        document.getElementById("pop_qty").innerHTML=quantity
+        // console.log(quantity);
+        
+        // price
+        price=document.getElementById("price").innerHTML
+        document.getElementById("pop_price").innerHTML=price
+        // console.log(price);
+
+        document.getElementById("pop_total").innerHTML=(parseInt(price)*parseInt(quantity)).toString()
+       
+        
+})
+</script>
+
+<!--Handling quantity -->
+<script>
+$("#minus").click(function () {
+    console.log("minus click");
+    current_qty=(document.getElementById("qty").innerHTML)
+    document.getElementById("qty").innerHTML=Math.max(current_qty-1,1).toString()
+})
+
+$("#plus").click(function () {
+    console.log("plus click");
+    current_qty=parseInt(document.getElementById("qty").innerHTML)
+    document.getElementById("qty").innerHTML=Math.min(5,current_qty+1).toString()
+})
+</script>
+
+<script>
+    function update(id) {
+        var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
+        name=document.getElementById("name").innerHTML
+        price=document.getElementById("price").innerHTML
+        quantity=parseInt(document.getElementById("qty").innerHTML)
+        img=document.getElementById("main").src
+  
+        let ItemExist=false
+        for(item in cart){
+            // console.log(cart[item][0]);
+        if (cart[item][0]===name) {
+            cart[item][1]=quantity
+                // console.log(cart);
+            alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?`);
+
+            ItemExist=true
+            break
+        } 
+    }
+        // Add the item
+    if(!ItemExist){
+        // simply add the item
+
+        cart[id]=[name,quantity,price,img]
+        
+        // console.log("Done!");
+    }
+        // Save the Changes
+    json_date=JSON.stringify(cart)
+    localStorage.setItem("cart",json_date)
+    }
+
+    $('.cart').click(function() {
+    let idstr=this.id.toString()
+
+    update(idstr)
+    location.reload();
+    
+    });
+</script>
+
+<script>
+    $("#pop_btn").click(function () {
+        senity_check()
+        console.log("click");
+    })
+</script>
+{% endblock %}

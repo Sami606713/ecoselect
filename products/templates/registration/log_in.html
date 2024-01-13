@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block body%}
+{% load static %}
+
+<div class="container">
+  <div class="row mb-5">
+    <div class="col-md-6 col-sm-12">
+      <div class="image-container">
+        <img src="https://picsum.photos/200/200" alt="Description of the image">
+    </div>
+
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-5">
+    <div class="signup-form">
+        <div class="form-section">
+          <h2 class="form-title">login in your account</h2>
+          <span>Enter your detail below </span>
+          <form action="/product/log_in" method="post">
+            {% csrf_token %}
+            <div class="input-field">
+              <input class="input100" type="username" name="username" placeholder="Type your username" required>
+            </div>
+
+             <div class="input-field">
+             <input class="input100" type="password" name="password" placeholder="Type your password" required>
+            </div>
+            <div class="text-right p-t-8 p-b-31">
+                 <a href="#">
+                            Forgot password?
+                </a>
+            </div>
+            
+            <!-- <div class="text-center mt-4"> -->
+              <button type="submit" class="bg-red-500 text-white py-2 hover:text-white px-4 rounded-md hover:bg-blue-600">Login</button>
+            <!-- </div> -->
+
+            <!-- <button type="submit" class="btn1">Login</button> -->
+            <a href="/product/signup" button type="submit" class="bg-red-500 text-white py-2 hover:text-black px-4 rounded-md hover:bg-green-500" >Create Account</button></a>
+
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    {% endblock %}
+
+        

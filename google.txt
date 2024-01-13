@@ -1,0 +1,28 @@
+ "django.contrib.sites",
+    "allauth",
+    "allauth.account",
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.google",
+
+
+SOCIALACCOUNT_PROVIDER={
+    "google":{
+        "SCOPE":[
+            "profile",
+            "emial"
+        ],
+        "AUTH_PARAMS":{
+            "access_type":"online"
+        }
+    }
+}
+
+AUTHENTICATION_BACKENDS=(
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend"
+)
+LOGIN_REDIRECT_URL="/"
+LOGOUT_REDIRECT_URL="/"
+
+  # login app
+    path("accounts/",include("allauth.urls")),

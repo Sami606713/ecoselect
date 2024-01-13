@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block body%}
+{% load static %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <div class="image-container">
+        <img src="https://picsum.photos/200/200" alt="Description of the image">
+    </div>
+
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+    <div class="signup-form">
+        <div class="form-section">
+          <h2 class="form-title">Create an account</h2>
+          <span>Enter your detail below </span>
+          <form action="/product/signup" method="post">
+            {% csrf_token %}
+            <div class="input-field">
+              <input type="text" id="username" name="username" class="form-control" placeholder="Your Name" required>
+            </div>
+
+            <div class="input-field">
+              <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+
+             <div class="input-field">
+              <input type="password" id="password" name="password" class="form-control" placeholder="Your Password" required>
+            </div>
+			<div class="text-right p-t-8 p-b-31">
+				<a href="/product/log_in">
+						   already have a account login
+			   </a>
+		   </div>
+            <button type="submit" class="bg-red-700 text-white py-2 hover:text-white px-4 rounded-md hover:bg-blue-600">Create Account</button>
+				  <button type="submit" class="bg-blue-500 text-white py-2 hover:text-white px-4 rounded-md hover:bg-red-700">Sign up with Google</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

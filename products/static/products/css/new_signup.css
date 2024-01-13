@@ -1,0 +1,77 @@
+.image-container {
+    max-width: 100%; /* Ensures the container does not exceed the width of its parent */
+    height: 400px; /* Allows the container to adjust its height based on the image's aspect ratio */
+    overflow: hidden; /* Ensures the image does not overflow the container */
+    margin-top: 20px;
+    border-radius: 15px;
+}
+  .signup-form{
+    padding: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: auto;
+    max-height: 300px;
+  }
+  
+  .signup-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .signup-form.form-group {
+    margin-bottom: 10px;
+  }
+  
+  .signup-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .signup-form input{
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+  }
+  
+  /* .signup-form textarea {
+    height: 100px;
+  } */
+  
+  .btn1{
+    width: auto;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 0.5px solid #333;
+    border-radius: 10px;
+    background-color: red;
+    color: white;
+  }
+
+  .btn2{
+    width: auto;
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: 0.5px solid #333;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+  }
+  .btn1,btn2{
+    display: block;
+    margin-top: 20px;
+  }
+
+  /* Media query for smaller devices */
+@media (max-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 100%; /* Forces the div to take full width on smaller devices */
+        max-width: 100%;
+    }.btn1 {
+        padding: 8px 12px; /* Adjusted padding for smaller screens */
+    }
+}
+ 

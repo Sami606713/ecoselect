@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Filter{% endblock %}
+
+{% block body%} 
+<section class="text-gray-400 bg-white body-font">
+    <div class="container px-5 py-24 mx-auto">
+      <h1 style="font-size: 3rem; margin-bottom: 5px; margin-top: 0px; color: black">Just For You:</h1>
+      <div class="flex flex-wrap -m-4">
+        {% for item in filter %}
+        <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+        {% for key,value in img_url.items %}
+          {% if item.id == key %}
+          <a href="/product/product_view/{{ item.id }}" class="block relative h-48 rounded overflow-hidden">
+            <img id="image{{ item.id }}" class="object-cover object-center w-full h-full block" src="{{value}}" alt="Product image">
+            <i class="fas fa-eye"></i>
+          </a>
+          {% endif %}
+        {% endfor %}
+
+          <div class="mt-4">
+            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{item.category}}</h3>
+            <h2 class="text-black title-font text-lg font-medium" id="prname{{item.id}}" style="color: rgb(19, 19, 18);">{{item.name}}</h2>
+            <h3 class="mt-1" id="price{{item.id}}" style="color: rgb(255, 102, 0);">{{item.price}}</h3>
+          </div>
+          {% if user.is_authenticated %}
+          <div class="mt-4">
+            <button class="bg-yellow text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4 cart" id="{{item.id}}">Add to cart</button>
+          </div>
+          {% else %}
+          <div class="mt-4">
+            <a href="{% url 'log_in' %}" button class="bg-yellow text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4 ">log in to add</a>
+          </div>
+          {% endif %}
+        </div>
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 %}
+        </div>
+        <div class="flex flex-wrap -m-4">
+        {% endif %}
+        {% endfor %}
+      </div>
+      
+    </div>
+  </section>
+  
+{% endblock %}

@@ -98,7 +98,11 @@ for(const item in cart){
                     <div id=total${item}>${price*quantity}</div>
                 </div>
                   ` 
+                
+        nbr=document.getElementById("pr"+item).value
+        console.log(nbr);
     }
+  
 }
 document.getElementById("total").innerHTML=total
 document.getElementById("sub_total").innerHTML=total
@@ -139,4 +143,5 @@ for(let item in cart){
       location.reload();
     });
 </script>
+
 {% endblock %}

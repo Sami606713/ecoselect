@@ -29,102 +29,31 @@
     </ol>
     </div>
     
-<div class="container mx-auto mt-8 p-4">
-    <div class="flex">
-        <!-- Left Div - Billing Address Form -->
-        <div class="w-1/2 pr-8">
-            <h2 class="text-2xl font-semibold mb-4">Billing Address</h2>
-            <form method="post" id="address_form">
-                {% csrf_token %}
-                <input type="hidden" id="itemjson" name="itemjson">
-                <!-- name -->
-                <div class="mb-4">
-                    <label for="name" class="block text-gray-700">Name:</label>
-                    <input type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded" required>
+    <div class="container mx-auto mt-8 p-4">
+        <div class="flex flex-col lg:flex-row">
+            <!-- Left Div - Your Items -->
+            <div class="lg:w-1/2 bg-white rounded-md shadow-md p-4 border border-black-500 mb-4 lg:mb-0">
+                <h1 class="grid grid-cols-4 p-2 font-bold h-10">Your Items:</h1>
+                <div class="grid grid-cols-4 gap-4 mb-3 mt-0 p-2 font-semibold auto-rows-fr" id="items">
+                    <!-- javascript handle -->
                 </div>
-
-                <!-- Street address -->
-                <div class="mb-4">
-                    <label for="addr" class="block text-gray-700">Address:</label>
-                    <input type="text" id="addr" name="addr" class="mt-1 p-2 w-full border rounded" required>
-                </div>
-
-                <!-- Phone number -->
-                <div class="mb-4">
-                    <label for="nbr" class="block text-gray-700">Phone number:</label>
-                    <input type="tel" id="nbr" name="nbr" class="mt-1 p-2 w-full border rounded" required>
-                </div>
-                  <!-- email address -->
-                  <div class="mb-4">
-                    <label for="email" class="block text-gray-700">email:</label>
-                    <input type="email" id="email" name="email" class="mt-1 p-2 w-full border rounded" required>
-                </div>
-
-                
-                <!-- Province Dropdown -->
-                <div class="mb-4">
-                    <label for="province" class="block text-gray-700">Province:</label>
-                    <select id="province" name="province" class="mt-1 p-2 w-full border rounded">
-                        <option value="Azad Kashmir">Azad Kashmir</option>
-                        <option value="Balochistan">Balochistan</option>
-                        <option value="Islamabad">Islamabad</option>
-                        <option value="KPK">KPK</option>
-                        <option value="Punjab">Punjab</option>
-                        <option value="Sindh">Sindh</option>
-                    </select>
-                </div>
-
-                <!-- City Dropdown -->
-                <div class="mb-4">
-                    <label for="city" class="block text-gray-700">City:</label>
-                    <select id="city" name="city" class="mt-1 p-2 w-full border rounded">
-                        <option value="haripur">haripur</option>
-                        <option value="Abbottabad">Abbottabad</option>
-                        <option value="Mansehera">Mansehra</option>
-                        <option value="Hattar">Hattar</option>
-                        <option value="Ghazi">Ghazi</option>
-                    </select>
-                </div>
-
-                <!-- Area Dropdown -->
-                <div class="mb-4">
-                    <label for="area" class="block text-gray-700">Area:</label>
-                    <select id="area" name="area" class="mt-1 p-2 w-full border rounded">
-                        <option value="Pharhala">Pharhala</option>
-                        <option value="K.T.S">K.T.S</option>
-                        <option value="Amir Khan Plaza">Amir Khan Plaza</option>
-                    </select>
-                </div>
-
-              
-                <!-- Add more form fields as needed -->
-
-                <!-- Submit button -->
-                <div class="text-center">
-                    <button class="bg-red-500 text-white py-2 hover:text-white px-4 rounded hover:bg-blue-600" id="address" style="display: none;">Submit</button> 
-                    
-                </div>
-            </form>
-        </div>
-
-        <!-- Right Div - Cart Total Information -->
-        <div class="w-1/2 bg-white rounded-md shadow-md p-4 border border-black-500">
-            <h1 class="grid grid-cols-4 p-2 font-bold h-10">Your Items: </h1>
-            <div class="grid grid-cols-4 mb-3 mt-0 p-2 font-semibold h-20" id="items">
-                
-                <!-- javascript handle -->
             </div>
-
-        <!-- Cart Total -->
-            <div class="card" style="margin-top: 24rem;" >
-                <div class="card-body" id="total_pr">
-                   
+    
+            <!-- Right Div - Cart Total Information -->
+            <div class="lg:w-1/2 bg-white rounded-md shadow-md p-4 border border-black-500 lg:ml-4">
+                <div class="mb-4">
+                    <div class="card-body" id="total_pr">
+                        <!-- handle Js -->
+                    </div>
                 </div>
+                <hr>
+    
+                <hr>
+    
             </div>
         </div>
     </div>
-</div>
-
+    
 
 {% endblock %}
 
@@ -175,16 +104,9 @@ document.getElementById("total_pr").innerHTML=`
                 <button class="bg-red-500 text-white py-2 hover:text-white px-4 rounded hover:bg-blue-600" id="order">Place Order</button>
             </div>
 `
-$("#itemjson").val(JSON.stringify(cart));
+
 $("#order").click(function() {
-    if (addresscheck()) {
-        senity_check()
-        
-        
-    }else{
-        alert("fill the Address Form")
-    }
-   
+    senity_check()
  });
 </script>
 

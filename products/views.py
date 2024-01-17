@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import logout
+from django.db import transaction
 from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from products.models import Products,Contact,Address,ProductImage
+from products.models import Products,Contact,Address,ProductImage,Order
 import math,os
 # Api imports
 from rest_framework import viewsets
@@ -70,13 +71,7 @@ def contact(request):
 
         contact=Contact(name=name,email=email,phone=phone_nbr,msg=msg)
         contact.save()
-
-        subject = 'New Contact Form Submission'
-        message = f'Name: {name}\nEmail: {email}\nPhone: {phone_nbr}\nMessage: {msg}'
-        from_email = "sami696713@gmail.com"
-        recipient_list = ['sami606713@gmail.com','sami606715@gmail.com']  # Add your email or a list of emails here
-
-        send_mail(subject, message, from_email, recipient_list,fail_silently=False,)
+        
     return render(request,"contact.html")
 
 
@@ -131,35 +126,45 @@ def cart(request):
     return render(request, "shoping_cart.html")
 
 # address
+@transaction.atomic
 def address(request):
     if(request.method=="POST"):
+        item=request.POST.get("itemjson")
         name=request.POST.get("name")
         phone_nbr=request.POST.get("nbr")
         address=request.POST.get("addr")
+        code=request.POST.get("code")
         email=request.POST.get("email")
         province=request.POST.get("province")
         city=request.POST.get("city")
         area=request.POST.get("area")
 
-        print("         ",name,phone_nbr,area)
-        new_address=Address(name=name,item_json=item,province=province,area=area,city=city,email=email,mobile=phone_nbr,address=address)
+        # print("         ",name)
+        new_address=Address(
+            name=name,
+            province=province,
+            code=code,
+            area=area,
+            city=city,
+            email=email,
+            mobile=phone_nbr,
+            address=address
+        )
+
+        # print("         ",item)
         new_address.save()
+        new_order = Order(item_json=item, address=new_address)
+        new_order.save()
+        return redirect("order")
     return render(request,"address.html")
+
 # order 
 def order(request):
     if(request.method=="POST"):
-        name=request.POST.get("name")
-        phone_nbr=request.POST.get("nbr")
-        address=request.POST.get("addr")
-        email=request.POST.get("email")
-        province=request.POST.get("province")
-        city=request.POST.get("city")
-        area=request.POST.get("area")
          # Order item
         item=request.POST.get("itemjson")
-        new_address=Address(name=name,item_json=item,province=province,area=area,city=city,email=email,mobile=phone_nbr,address=address)
-        new_address.save()
-        
+        # new_order=Order(item_json=item)
+        # new_order.save()
     return render(request,"order.html")
 # end order
 

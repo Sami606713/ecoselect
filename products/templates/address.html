@@ -28,18 +28,18 @@
     </li>
 </ol>
 </div>
-<!-- <div class="flex justify-center items-center h-screen"> Center the content vertically and horizontally -->
-    <!-- Left Div - Billing Address Form -->
-    <!-- <div class="grid gap-4 mb-4 sm:grid-cols-2"> Set width for the form content -->
+<!-- Left Div - Billing Address Form -->
     <div class="container">
         <h2 class="text-2xl font-semibold mb-4">Billing Address</h2>
-        <form action="/product/order" method="post">
+        <form action="/product/address" method="post">
             <div class="grid gap-4 mb-4 sm:grid-cols-2">
                {% csrf_token %}
+                    <!-- items -->
                     <!-- name -->
                     <div class="mb-4">
                         <label for="name" class="block text-gray-700">Name:</label>
                         <input type="text" id="name" name="name" class="mt-1 p-2 w-full border rounded" required>
+                        <input type="hidden" id="itemjson" name="itemjson" class="mt-1 p-2 w-full border rounded" required>
                     </div>
         
                     <!-- Street address -->
@@ -116,20 +116,10 @@
 
 {% endblock %}
 
-
+{% block js%}
 <script>
-    
-function addresscheck() {
-    const name=document.getElementById("name").value
-    const addr=document.getElementById("addr").value
-    const email=document.getElementById("email").value
-    const nbr=document.getElementById("nbr").value
-
-    console.log(name,addr,email,nbr);
-    if(name && addr && email && nbr){
-        return true
-    }else {
-        return false;
-    }
-}
+    const jsonItems=localStorage.getItem("cart")
+    $("#itemjson").val(jsonItems)
+// console.log(localStorage.getItem("cart"));
 </script>
+{% endblock %}

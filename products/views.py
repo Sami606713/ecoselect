@@ -19,7 +19,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 # Stipe
 import stripe
-
+from products.utils import send_email
 import json
 
 # Create your views here.
@@ -62,6 +62,13 @@ def index(request):
 
 
 def contact(request):
+    # addres=Address.objects.all()
+    # order=Order.objects.filter(address__in=addres)
+    # img_dic={}
+    # for img in order:
+    #     if(img.order_id not in img_dic):
+    #         # img_dic[img.product_id]=img.image.url
+    #         print()
     if(request.method=="POST"):
         name=request.POST.get("name")
         phone_nbr=request.POST.get("phone_number")
@@ -71,7 +78,8 @@ def contact(request):
 
         contact=Contact(name=name,email=email,phone=phone_nbr,msg=msg)
         contact.save()
-        
+        # send_email(name=name,phone_nbr=phone_nbr,email=email,msg=msg)
+
     return render(request,"contact.html")
 
 
@@ -187,8 +195,9 @@ def product_filter(request):
                 print(image.image.url)
                 img_dic[image.product_id]=image.image.url
             # print(image)
-
         parms={"filter":filter_product,"img_url":img_dic}
+
+        
     # return HttpResponse("Filter page")
     return render(request,"product_filter.html",parms)
 
@@ -208,6 +217,9 @@ def create_checkout_session(request):
     if request.method == 'GET':
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        # addres=Address.objects.all()
+
+        # order=Order.objects.filter(address__in=addres)
         try:
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',

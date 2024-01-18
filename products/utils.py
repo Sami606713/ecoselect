@@ -3,7 +3,7 @@ import json
 def fetch_product():
      # fetch all the address
     address=Address.objects.all()
-
+    
     # based on address fetch the orders
     addr_order=Order.objects.filter(address__in=address)
 

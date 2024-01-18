@@ -3,11 +3,15 @@
 
 {% block body%} 
 {% load static%}
-<h1>Payment success</h1>
+<h1 >Payment success</h1>
+<button id="success" style="display: none;">Clear</button>
 {% endblock %}
 
-{% blockjs %}
+{% block js%}
 <script>
-    localStorage.clear()
+    // $("#success").click()
+    // if($("#success").click()){
+    //     localStorage.clear()
+    // }
 </script>
 {% endblock %}

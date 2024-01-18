@@ -110,52 +110,15 @@ $("#plus").click(function () {
 </script>
 
 <script>
-    // function update(id) {
-    //     var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
-    //     name=document.getElementById("name").innerHTML
-    //     price=document.getElementById("price").innerHTML
-    //     quantity=parseInt(document.getElementById("qty").innerHTML)
-    //     img=document.getElementById("main").src
-  
-    //     let ItemExist=false
-    //     for(item in cart){
-    //         if (item==id) {
-    //             console.log("id match");
-    //             alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
-    //             `);
-    //             ItemExist=true
-    //             break
-    //         }
-    //         // if (cart[item][0]===name) {
-    //         //     cart[item][1]=quantity
-    //         //         // console.log(cart);
-    //         //     alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?`);
-
-    //         //     ItemExist=true
-    //         //     break
-    //         // } 
-    // }
-    //     // Add the item
-    // if(!ItemExist){
-    //     // simply add the item
-
-    //     cart[id]=[name,quantity,price,img]
-        
-    //     // console.log("Done!");
-    // }
-    //     // Save the Changes
-    // json_date=JSON.stringify(cart)
-    // localStorage.setItem("cart",json_date)
-    // }
-
     $('.cart').click(function() {
         let idstr=this.id.toString()
         name=document.getElementById("name").innerHTML
         price=document.getElementById("price").innerHTML
         quantity=parseInt(document.getElementById("qty").innerHTML)
         img=document.getElementById("main").src
+        // call the update function
         update(idstr,name,quantity,price,img)
-        console.log(idstr);
+        // console.log(idstr);
     });
 </script>
 

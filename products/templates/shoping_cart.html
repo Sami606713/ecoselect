@@ -111,31 +111,30 @@ document.getElementById("sub_total").innerHTML=total
 document.getElementById("cart").innerHTML=Object.keys(cart).length
 
 $(".update").click(function(){
-console.log("update clicked");
-for(let item in cart){
-    console.log(document.getElementById("pr"+item).value);
-    let new_quantity=document.getElementById("pr"+item).value
-    console.log(cart[item][1]);
-    if (new_quantity<=0) {
-        new_quantity=1
-    }
-    else{
-        try{
-        cart[item][1]=new_quantity
-        // cart[item][2]=new_price
+    console.log("update clicked");
+    for(let item in cart){
+        console.log(document.getElementById("pr"+item).value);
+        let new_quantity=document.getElementById("pr"+item).value
         console.log(cart[item][1]);
-        const update_cart=JSON.stringify(cart)
+        if (new_quantity<=0) {
+            new_quantity=1
+        }
+        else{
+            try{
+            cart[item][1]=new_quantity
+            // cart[item][2]=new_price
+            console.log(cart[item][1]);
+            const update_cart=JSON.stringify(cart)
 
-        localStorage.setItem("cart",update_cart)
-        // console.log("update successfull");
+            localStorage.setItem("cart",update_cart)
+            // console.log("update successfull");
+        }
+    catch{
+        console.log("error");
     }
-   catch{
-    console.log("error");
-   }
 
+        }
     }
-    
-}
 }); 
 </script>
 <script>

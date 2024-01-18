@@ -54,34 +54,9 @@
                 </svg>
             </button>
 
-            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2" id="single_item">Buy Now</button>
-            <!-- Pop over content -->
-
-            <!-- End pop over -->
-            <div id="popover" class="fixed inset-0 flex items-center justify-center hidden">
-                <!-- Popover Content -->
-                <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md relative">
-                    <!-- Close Button -->
-                    <button id="closePopover" class="absolute top-3 right-3 text-gray-600 hover:text-gray-700">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                    
-                    <!-- Product Details -->
-                    <img src="https://source.unsplash.com/400x300/?ecommerce" alt="Product Image" id="popimg" class="mt-4 rounded-md">
-                    <h2 class="text-xl font-semibold mb-4" id="pop_text">jenes</h2>
-                    <p id="pop_qty" class="text-black  rounded hover:bg-green-500  ">1</p>
-                    <p id="pop_price" class="text-black rounded hover:bg-green-500 ">Price: $50</p>
-                    <p id="pop_total" class="text-black rounded hover:bg-green-500 ">Price: $50</p>
-                    
-                    <!-- Place order button -->
-                    <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2" id="pop_btn">Place Order</button>
-                    
-                </div>
-            </div>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2">Buy Now</button>
             <!-- Add to cart btn -->
-            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 cart" id=item{{fetch_product.name}}>Add to cart</button>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 cart" id={{fetch_product.id}}>Add to cart</button>
         </div>
 
         <!-- Buy Now Button -->
@@ -109,10 +84,14 @@ for (let i=0;i<image.length;i++) {
 </script>
 <script>
 // Popover show
-$("#single_item").click(function() {
-    
-    senity_check()  
-})
+// cart=JSON.parse(localStorage.getItem("cart"))
+// for(item in cart){
+//     // console.log(item);
+//     $('#'+item).click(function () {
+//         console.log(item,"clicked");
+//         // update(item)
+//     })
+// }
 </script>
 
 <!--Handling quantity -->
@@ -131,44 +110,52 @@ $("#plus").click(function () {
 </script>
 
 <script>
-    function update(id) {
-        var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
+    // function update(id) {
+    //     var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
+    //     name=document.getElementById("name").innerHTML
+    //     price=document.getElementById("price").innerHTML
+    //     quantity=parseInt(document.getElementById("qty").innerHTML)
+    //     img=document.getElementById("main").src
+  
+    //     let ItemExist=false
+    //     for(item in cart){
+    //         if (item==id) {
+    //             console.log("id match");
+    //             alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
+    //             `);
+    //             ItemExist=true
+    //             break
+    //         }
+    //         // if (cart[item][0]===name) {
+    //         //     cart[item][1]=quantity
+    //         //         // console.log(cart);
+    //         //     alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?`);
+
+    //         //     ItemExist=true
+    //         //     break
+    //         // } 
+    // }
+    //     // Add the item
+    // if(!ItemExist){
+    //     // simply add the item
+
+    //     cart[id]=[name,quantity,price,img]
+        
+    //     // console.log("Done!");
+    // }
+    //     // Save the Changes
+    // json_date=JSON.stringify(cart)
+    // localStorage.setItem("cart",json_date)
+    // }
+
+    $('.cart').click(function() {
+        let idstr=this.id.toString()
         name=document.getElementById("name").innerHTML
         price=document.getElementById("price").innerHTML
         quantity=parseInt(document.getElementById("qty").innerHTML)
         img=document.getElementById("main").src
-  
-        let ItemExist=false
-        for(item in cart){
-            // console.log(cart[item][0]);
-        if (cart[item][0]===name) {
-            cart[item][1]=quantity
-                // console.log(cart);
-            alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?`);
-
-            ItemExist=true
-            break
-        } 
-    }
-        // Add the item
-    if(!ItemExist){
-        // simply add the item
-
-        cart[id]=[name,quantity,price,img]
-        
-        // console.log("Done!");
-    }
-        // Save the Changes
-    json_date=JSON.stringify(cart)
-    localStorage.setItem("cart",json_date)
-    }
-
-    $('.cart').click(function() {
-    let idstr=this.id.toString()
-
-    update(idstr)
-    location.reload();
-    
+        update(idstr,name,quantity,price,img)
+        console.log(idstr);
     });
 </script>
 

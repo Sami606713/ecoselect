@@ -1,8 +1,5 @@
-
 (function ($) {
     "use strict";
-
-
      /*==================================================================
     [ Focus input ]*/
     $('.input100').each(function(){
@@ -15,8 +12,6 @@
             }
         })    
     })
-  
-  
     /*==================================================================
     [ Validate ]*/
     var input = $('.validate-input .input100');
@@ -65,7 +60,63 @@
 
         $(thisAlert).removeClass('alert-validate');
     }
-    
-    
-
 })(jQuery);
+
+// Update
+function update(id,name,quantity,price,img) {
+    var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
+    let ItemExist=false
+    for(item in cart){
+        if (item==id) {
+            console.log("id match");
+            alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
+            `);
+            ItemExist=true
+            break
+        }else{
+            console.log("id not match");
+        }
+}
+    // Add the item
+if(!ItemExist){
+    // simply add the item
+
+    cart[id]=[name,quantity,price,img]
+    
+    // console.log("Done!");
+}
+    // Save the Changes
+json_date=JSON.stringify(cart)
+localStorage.setItem("cart",json_date)
+location.reload();
+}
+
+// Stripe payment integration
+function senity_check() {
+    console.log("Sanity check!");
+ 
+    // Get Stripe publishable key
+    fetch("/product/config/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+    // Initialize Stripe.js
+    const stripe = Stripe(data.publicKey);
+ 
+    // new
+    // Event handler
+    fetch("/product/create-checkout-session/")
+    .then((result) => { return result.json(); })
+    .then((data) => {
+        console.log(data);
+        // Redirect to Stripe Checkout
+        return stripe.redirectToCheckout({ sessionId: data.sessionId });
+    })
+    .then((res) => {
+        console.log(res);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+ 
+    });
+ }

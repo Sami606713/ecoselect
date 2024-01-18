@@ -6,6 +6,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from products.models import Products,Contact,Address,ProductImage,Order
 import math,os
+from bson import ObjectId
+from products.utils import fetch_product
 # Api imports
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -14,12 +16,9 @@ from products.serializers import ProductSerializer
 # costom log-in imports
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-# Email sending
-from django.conf import settings
-from django.core.mail import send_mail
 # Stipe
 import stripe
-from products.utils import send_email
+from django.conf import settings
 import json
 
 # Create your views here.
@@ -40,6 +39,7 @@ class ProductViewsets(viewsets.ModelViewSet):
 
 # products end point
 def index(request):
+    # print(fetch_product())
     # fetch all the product
     product=Products.objects.all()
 
@@ -219,23 +219,25 @@ def create_checkout_session(request):
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             checkout_session = stripe.checkout.Session.create(
-                success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
+                 success_url=domain_url + '/product/success/',
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
                 mode='payment',
-                line_items = [
-                {
-                    'price_data': {
-                        'currency': 'PKR',
-                        'product_data': {
-                            'name': 'shoes2',
-                            'description': 'awsome',
-                        },
-                        'unit_amount': 50000,  # Amount in cents (USD)
-                    },
-                    'quantity': 1,
-                }
-            ]
+                line_items=fetch_product()
+            #     line_items = [
+            #     {
+            #         'price_data': {
+            #             'currency': 'PKR',
+            #             'product_data': {
+            #                 'name': 'shoes2',
+            #                 'description': 'awsome',
+            #             },
+            #             'unit_amount': 50000,  # Amount in cents (USD)
+            #         },
+            #         'quantity': 1,
+            #     }
+            # ]
             )
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:
@@ -259,7 +261,7 @@ def success(request):
     except stripe.error.StripeError as e:
         # Log the error for debugging purposes
         print(f"Stripe error: {str(e)}")
-        return render(request, 'failure.html', {'session_id': session_id, 'error_message': 'Payment failed. Please try again.'})
+        return render(request, 'success.html', {'session_id': session_id, 'error_message': 'Payment failed. Please try again.'})
     except Exception as e:
         # Log the error for debugging purposes
         print(f"Error: {str(e)}")

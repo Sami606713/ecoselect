@@ -1,43 +1,43 @@
-import requests
-def send_email(name, phone_nbr, email, msg):
-    # Replace these with your Mailgun API key and domain
-    api_key = 'pubkey-9340f1f3e35a14da25e025b47b0ef728'
-    domain = 'sandboxf93de014108944a482be2c09ee67de1b.mailgun.org'
+from products.models import Address,Order
+import json
+def fetch_product():
+     # fetch all the address
+    address=Address.objects.all()
 
-    # Mailgun API endpoint
-    url = f'https://api.mailgun.net/v3/{domain}/messages'
+    # based on address fetch the orders
+    addr_order=Order.objects.filter(address__in=address)
 
-    # Mailgun API request headers
-    headers = {
-        'Authorization': f'Basic {api_key}',
-    }
+    # makea  empty dict
+    orders_dic={}
+    for order in addr_order:
+        if order.address_id not in orders_dic:
+            orders_dic[order.address_id] = order.item_json
 
-    # Mailgun API request data
-    data={"from": "samiullah <mailgun@sandboxf93de014108944a482be2c09ee67de1b.mailgun.org>",
-			"to": ["sami606713@gmail.com", "YOU@YOUR_DOMAIN_NAME"],
-			"subject": "Hello",
-			"text": "Testing some Mailgun awesomeness!"}
+    # print(orders_dic)
+    line_items = []
 
-    # Make the Mailgun API request
-    response = requests.post(url, headers=headers, data=data)
+    for order_id, order_detail_json in orders_dic.items():
+        order_detail = json.loads(order_detail_json)
 
-    # Check if the email was sent successfully (you may need to adjust this based on Mailgun's API response structure)
-    if response.status_code == 200:
-        print('Email sent successfully!')
-    else:
-        print(f'Failed to send email. Status code: {response.status_code}')
+        for item_id, item_info in order_detail.items():
+            product_name, quantity, amount, image_url = item_info
+            unit_amount = int(float(amount) * 100)  # Convert amount to cents
 
+            line_item = {
+                'price_data': {
+                    'currency': 'PKR',
+                    'product_data': {
+                        'name': product_name,
+                        'description': f'Quantity: {quantity}',
+                        'images': [image_url],
+                    },
+                    'unit_amount': unit_amount,
+                },
+                'quantity': int(quantity),
+            }
 
-# send_email('John Doe', '1234567890', 'john.doe@example.com', 'Hello, this is a test message.')
+            line_items.append(line_item)
+    return line_items
+    
 
-
-def send_simple_message():
-	return requests.post(
-		"https://api.mailgun.net/v3/sandboxf93de014108944a482be2c09ee67de1b.mailgun.org/messages",
-		auth=("api", "5899add20734f420ddfd047e00cbcd82-4c955d28-c4be5685"),
-		data={"from": "samiullah <mailgun@sandboxf93de014108944a482be2c09ee67de1b.mailgun.org>",
-			"to": ["sami606713@gmail.com", "samiullah@sandboxf93de014108944a482be2c09ee67de1b.mailgun.org"],
-			"subject": "Hello",
-			"text": "Testing some Mailgun awesomeness!"})
-
-send_simple_message()
+# print(fetch_product())

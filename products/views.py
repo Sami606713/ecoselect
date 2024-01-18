@@ -217,9 +217,6 @@ def create_checkout_session(request):
     if request.method == 'GET':
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
-        # addres=Address.objects.all()
-
-        # order=Order.objects.filter(address__in=addres)
         try:
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
@@ -245,5 +242,25 @@ def create_checkout_session(request):
             return JsonResponse({'error': str(e)})
 
 
-def success_view(request):
-    return render("success.html")
+@csrf_exempt
+def success(request):
+    session_id = request.GET.get('session_id')
+    try:
+        # Retrieve the Checkout Session to check the payment status
+        checkout_session = stripe.checkout.Session.retrieve(session_id)
+
+        # Handle the success scenario based on the payment status
+        if checkout_session.payment_status == 'paid':
+            # Payment is successful
+            return render(request, 'success.html', {'session_id': session_id})
+        else:
+            # Payment is not successful
+            return render(request, 'failure.html', {'session_id': session_id, 'error_message': 'Payment failed.'})
+    except stripe.error.StripeError as e:
+        # Log the error for debugging purposes
+        print(f"Stripe error: {str(e)}")
+        return render(request, 'failure.html', {'session_id': session_id, 'error_message': 'Payment failed. Please try again.'})
+    except Exception as e:
+        # Log the error for debugging purposes
+        print(f"Error: {str(e)}")
+        return HttpResponse(f'Error: {str(e)}')

@@ -110,49 +110,8 @@ for (let i=0;i<image.length;i++) {
 <script>
 // Popover show
 $("#single_item").click(function() {
-    const singleItemButton = document.getElementById('single_item');
-        const popover = document.getElementById('popover');
-        const closePopoverButton = document.getElementById('closePopover');
-
-        // Show popover when button is clicked
-        singleItemButton.addEventListener('click', function() {
-            popover.classList.remove('hidden');
-        });
-
-        // Hide popover when close button is clicked
-        closePopoverButton.addEventListener('click', function() {
-            popover.classList.add('hidden');
-        });
-
-        // Hide popover when user clicks outside of it
-        window.addEventListener('click', function(event) {
-            if (event.target === popover) {
-                popover.classList.add('hidden');
-            }
-        });
-
-        // Changing pop over content
-        // image
-        img_url=document.getElementById("main").src
-        document.getElementById("popimg").src=img_url
-
-        // name
-        name=document.getElementById("name").innerHTML
-        document.getElementById("pop_text").innerHTML=name
-
-        // quantity
-        quantity=document.getElementById("qty").innerHTML
-        document.getElementById("pop_qty").innerHTML=quantity
-        // console.log(quantity);
-        
-        // price
-        price=document.getElementById("price").innerHTML
-        document.getElementById("pop_price").innerHTML=price
-        // console.log(price);
-
-        document.getElementById("pop_total").innerHTML=(parseInt(price)*parseInt(quantity)).toString()
-       
-        
+    
+    senity_check()  
 })
 </script>
 

@@ -20,5 +20,5 @@ urlpatterns = [
     path("filter",views.product_filter,name="filter"),
     path('config/', views.stripe_config,name="config"),
     path('create-checkout-session/', views.create_checkout_session,name="check_out"), # new
-    path('success/', views.success_view, name='success'),
+    path('success/', views.success, name='success'),
 ]

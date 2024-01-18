@@ -62,7 +62,17 @@
     }
 })(jQuery);
 
-// Update
+// set the cart in local storage
+function set_cart() {
+    var cart;  // Declaring the cart variable
+    if (localStorage.getItem("cart") === null) {  // Corrected the condition
+      cart = {};
+    } else {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+    return cart
+}
+// Add and Update cart
 function update(id,name,quantity,price,img) {
     var cart =JSON.parse(localStorage.getItem("cart")) || {};// parse the cart variable and get the inner html 
     let ItemExist=false

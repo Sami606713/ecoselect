@@ -102,27 +102,7 @@
 {% endblock%}>
 
 {% block js %}  
-<script>
-  // jQuery code to handle cart click
-  function add_item(idstr){
-    //  console.log("clicked");
-    if (cart[idstr]==undefined) { 
-        quantity=1
-        name=document.getElementById("prname"+idstr).innerHTML
-        price=document.getElementById("price"+idstr).innerHTML
-        image=document.getElementById("image"+idstr).src
-        // cart[idstr]=[name,quantity,price,image.src]
-        update(idstr,name,quantity,price,image)
-    }
-    localStorage.setItem("cart",JSON.stringify(cart));
-    // document.getElementById("cart").innerHTML=Object.keys(cart).length
-
-    document.getElementById("cart").innerHTML=Object.keys(cart).length
-    // document.getElementById("cart").innerHTML=Object.values(cart).reduce((acc, value) => acc + value, 0);
-   
-  }
-
-  
+<script>  
   $('.cart').click(function() {
     var idstr=this.id.toString();
     quantity=1
@@ -131,7 +111,6 @@
     image=document.getElementById("image"+idstr).src
         // cart[idstr]=[name,quantity,price,image.src]
     update(idstr,name,quantity,price,image)
-    // add_item(idstr)
 
   });
 </script>

@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <script defer src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
-    <!-- <script src="{% static 'products/js/strip.js'%}" defer></script> -->
+    <!-- Add this in the head of your HTML file -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+
+    <script src="{% static 'products/js/shoping_cart.js'%}" defer></script>
     <script src="{% static 'products/js/main.js'%}" defer></script>
     <link href="{% static 'products/css/contacts.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'products/css/new_signup.css' %}">
@@ -46,10 +49,11 @@
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Search</button>
           {% if user.is_authenticated %}
-          <a href="/product/shoping_cart" data-popover-target="popover-user-profile" type="button" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-2" id="CartButton" type="submit">
-            <span id="cart">0</span>
-            <!-- <i class="fas fa-shopping-cart"></i> -->
+          <a href="/product/shoping_cart" data-popover-target="popover-user-profile" class="relative group bg-white text-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-2" id="CartButton">
+            <span id="cart" class="text-black hover:text-gray-400">0</span>
+           
           </a>
+          
           {% else %}
           <h1><h1></h1>
           {% endif %}
@@ -159,14 +163,13 @@
     <script src="https://unpkg.com/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6.3.1/dist/tippy-bundle.umd.min.js"></script>
     <script>
-      var cart;  // Declaring the cart variable
-  
-      if (localStorage.getItem("cart") === null) {  // Corrected the condition
-        cart = {};
-      } else {
-        cart = JSON.parse(localStorage.getItem("cart"));
-        document.getElementById("cart").innerHTML=Object.keys(cart).length
-      }
+    var cart;  // Declaring the cart variable
+    if (localStorage.getItem("cart") === null) {  // Corrected the condition
+      cart = {};
+    } else {
+      cart = JSON.parse(localStorage.getItem("cart"));
+    }
+     document.getElementById("cart").innerHTML=Object.keys(cart).length
     </script>
     {% block js %}  {% endblock %}
   </body>

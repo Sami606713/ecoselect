@@ -225,19 +225,6 @@ def create_checkout_session(request):
                 payment_method_types=['card'],
                 mode='payment',
                 line_items=fetch_product()
-            #     line_items = [
-            #     {
-            #         'price_data': {
-            #             'currency': 'PKR',
-            #             'product_data': {
-            #                 'name': 'shoes2',
-            #                 'description': 'awsome',
-            #             },
-            #             'unit_amount': 50000,  # Amount in cents (USD)
-            #         },
-            #         'quantity': 1,
-            #     }
-            # ]
             )
             return JsonResponse({'sessionId': checkout_session['id']})
         except Exception as e:

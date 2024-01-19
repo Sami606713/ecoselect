@@ -79,7 +79,6 @@
         {% if user.is_authenticated %}
         <div class="mt-4">
           <button class="bg-yellow text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4 cart" id="{{item.id}}">Add to cart
-
           </button>
         </div>
         {% else %}
@@ -111,9 +110,13 @@
     image=document.getElementById("image"+idstr).src
         // cart[idstr]=[name,quantity,price,image.src]
     update(idstr,name,quantity,price,image)
-
   });
 </script>
 
+<!-- <script>
+   $('.cart').click(function() {
+    console.log("click");
+   });
+</script> -->
 {% endblock %}
 

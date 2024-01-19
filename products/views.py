@@ -220,7 +220,7 @@ def create_checkout_session(request):
         try:
             checkout_session = stripe.checkout.Session.create(
                 # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-                success_url=domain_url + '/product/success/',
+                 success_url=domain_url + '/product/success/',
                 cancel_url=domain_url + 'cancelled/',
                 payment_method_types=['card'],
                 mode='payment',
@@ -237,6 +237,7 @@ def success(request):
     try:
         # Retrieve the Checkout Session to check the payment status
         checkout_session = stripe.checkout.Session.retrieve(session_id)
+
         # Handle the success scenario based on the payment status
         if checkout_session.payment_status == 'paid':
             # Payment is successful

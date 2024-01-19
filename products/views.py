@@ -237,7 +237,6 @@ def success(request):
     try:
         # Retrieve the Checkout Session to check the payment status
         checkout_session = stripe.checkout.Session.retrieve(session_id)
-
         # Handle the success scenario based on the payment status
         if checkout_session.payment_status == 'paid':
             # Payment is successful

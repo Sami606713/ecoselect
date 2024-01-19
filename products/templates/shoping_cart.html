@@ -108,7 +108,12 @@ document.getElementById("total").innerHTML=total
 document.getElementById("sub_total").innerHTML=total
 
 // console.log(document.getElementById("cart"));
-document.getElementById("cart").innerHTML=Object.keys(cart).length
+try {
+    document.getElementById("cart").innerHTML=Object.keys(cart).length
+} catch (error) {
+    document.getElementById("cart").innerHTML="0"
+}
+
 
 $(".update").click(function(){
     console.log("update clicked");

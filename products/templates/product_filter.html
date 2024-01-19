@@ -46,6 +46,16 @@
 
 {% block js%}
 <script>
-  $()
+  $(".cart").click(function () {
+    var idstr=this.id.toString();
+    quantity=1
+    name=document.getElementById("prname"+idstr).innerHTML
+    price=document.getElementById("price"+idstr).innerHTML
+    image=document.getElementById("image"+idstr).src
+        // cart[idstr]=[name,quantity,price,image.src]
+    update(idstr,name,quantity,price,image)
+    console.log(idstr,name,quantity,price,image);
+  })
+   
 </script>
 {% endblock %}

@@ -54,7 +54,7 @@
                 </svg>
             </button>
 
-            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2">Buy Now</button>
+            <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 buy">Buy Now</button>
             <!-- Add to cart btn -->
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 cart" id={{fetch_product.id}}>Add to cart</button>
         </div>
@@ -71,27 +71,27 @@
 <script>
 let image={{image_url|safe}}
 for (let i=0;i<image.length;i++) {
-
-    // console.log(image[i].length);
     $("#"+image[i].length).click(function () {
-
-    img_url=document.getElementById(image[i].length).src
-
-    document.getElementById("main").src=img_url 
+        var idstr=this.id.toString();
+        img_url=document.getElementById(idstr).src
+        // console.log(img_url);
+        document.getElementById("main").src=img_url 
 })
 }
 
 </script>
 <script>
-// Popover show
-// cart=JSON.parse(localStorage.getItem("cart"))
-// for(item in cart){
-//     // console.log(item);
-//     $('#'+item).click(function () {
-//         console.log(item,"clicked");
-//         // update(item)
-//     })
-// }
+$(".buy").click(function () {
+    console.log("buy clicked");
+    let idstr=this.id.toString()
+    name=document.getElementById("name").innerHTML
+    price=document.getElementById("price").innerHTML
+    quantity=parseInt(document.getElementById("qty").innerHTML)
+    img=document.getElementById("main").src
+        // call the update function
+    // update(idstr,name,quantity,price,img)
+        // console.log(idstr,name,quantity,price,img);
+})
 </script>
 
 <!--Handling quantity -->
@@ -120,12 +120,5 @@ $("#plus").click(function () {
         update(idstr,name,quantity,price,img)
         // console.log(idstr);
     });
-</script>
-
-<script>
-    $("#pop_btn").click(function () {
-        senity_check()
-        console.log("click");
-    })
 </script>
 {% endblock %}

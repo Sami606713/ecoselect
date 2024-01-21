@@ -32,7 +32,8 @@
     </div>
     
     <div>
-        <h1>Payment success</h1>
+        <h1 >Payment success</h1>
+        <button  id="clear" onclick=clearCart()>clearcart</button>
     </div>
 {% endblock %}
 
@@ -52,6 +53,8 @@
     
 </script> -->
 <script>
-    // $("#clr").click() 
+     window.onload = function() {
+        document.getElementById("clear").click();
+    };
 </script>
 {% endblock %}

@@ -99,7 +99,17 @@ localStorage.setItem("cart",json_date)
 location.reload();
 }
 
+function viewCart() {
+    // Add logic for viewing cart
+    console.log("View Cart clicked");
+    window.location="/product/shoping_cart"
+}
 
+function clearCart() {
+    // Add logic for clearing cart
+    // console.log("Clear Cart clicked");
+    localStorage.clear()
+}
 
 // Stripe payment integration
 function senity_check() {

@@ -98,7 +98,7 @@ for(const item in cart){
                     <div id=total${item}>
                     ${price*quantity}
                         
-                    <input type="checkbox" id="checkbox${item}" class="ml-auto" onchange=PerformAction(event,checkbox${item})>
+                    <input type="checkbox" id="checkbox${item}" class="ml-auto check_box" onchange=PerformAction(event,checkbox${item})>
                     </div>
                 </div>
                   ` 
@@ -132,7 +132,7 @@ $(".update").click(function(){
             try{
             cart[item][1]=new_quantity
             // cart[item][2]=new_price
-            console.log(cart[item][1]);
+            // console.log(cart[item][1]);
             const update_cart=JSON.stringify(cart)
 
             localStorage.setItem("cart",update_cart)
@@ -147,27 +147,68 @@ $(".update").click(function(){
 }); 
 </script>
 <script>
-    document.getElementById('update_btn').addEventListener('click', function() {
-      location.reload();
-    });
+    
+    $("#update_btn").click(function () {
+        // location.reload();
+    })
 </script>
 
 <script>
-    // cart=JSON.parse(localStorage.getItem("cart"))
+    // Check box for delete functionality
     function PerformAction(event,checkid) {
-        const isChecked = event.target.checked;
-        // console.log(`Checkbox ${id} is checked: ${isChecked}`);
-        if(isChecked){
-            document.getElementById("update_btn").innerHTML="Delete"
-            document.getElementById("update_btn").classList.remove("update")
-            document.getElementById("update_btn").classList.add("delete-btn");
+        const update_btn=document.getElementById("update_btn")
+        const delete_btn= document.getElementById("delete")
+        const checkboxes = document.querySelectorAll('.check_box'); // Replace 'checkbox-class' with the actual class of your checkboxes
+    
+    // Check if any checkbox is checked
+        const anyCheckboxChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+        if(anyCheckboxChecked){
+            update_btn.innerHTML="Delete"
+            
+            // Remove the update class
+            update_btn.classList.remove("update")
+
+            // Add delete-btn class
+            update_btn.classList.add("delete-btn");
+
+            // Set the id
+            update_btn.setAttribute("id","delete")
+
+            // fetch the item that enable the check
+
+
         }else{
-            no_change="Update Cart"
-            document.getElementById("update_btn").innerHTML=no_change
-            document.getElementById("update_btn").classList.remove("delete-btn")
-            document.getElementById("update_btn").classList.add("update")
+            delete_btn.innerHTML="Update Cart"
+            // remove delete-btn class
+            delete_btn.classList.remove("delete-btn")
+
+            // add update class
+            delete_btn.classList.add("update")
+
+             // reset the id
+             delete_btn.setAttribute("id","update_btn")
+            
         }
     }
-   
+// End 
 </script>
+<script>
+    cart=JSON.parse(localStorage.getItem("cart"))
+    $(document).on('click', '.delete-btn', function() {
+    console.log("delete click");
+    // var idstr=this.id.toString()
+    // console.log(idstr);
+    const checkboxes = document.querySelectorAll('.check_box'); // Replace 'checkbox-class' with the actual class of your checkboxes
+    
+    // Check if any checkbox is checked
+    const anyCheckboxChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+    for(let item in cart){
+        console.log(item);
+    }
+});
+</script>
+
+
 {% endblock %}

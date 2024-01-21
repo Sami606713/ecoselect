@@ -99,6 +99,8 @@ localStorage.setItem("cart",json_date)
 location.reload();
 }
 
+
+
 // Stripe payment integration
 function senity_check() {
     console.log("Sanity check!");

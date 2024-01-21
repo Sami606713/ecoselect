@@ -98,7 +98,7 @@ for(const item in cart){
                     <div id=total${item}>
                     ${price*quantity}
                         
-                    <input type="checkbox" id="checkbox${item}" class="ml-auto" onchange=PerformAction(checkbox${item}z)>
+                    <input type="checkbox" id="checkbox${item}" class="ml-auto" onchange=PerformAction(event,checkbox${item})>
                     </div>
                 </div>
                   ` 
@@ -153,7 +153,18 @@ $(".update").click(function(){
 </script>
 
 <script>
-    cart=JSON.parse(localStorage.getItem("cart"))
+    // cart=JSON.parse(localStorage.getItem("cart"))
+    function PerformAction(event,checkid) {
+        const isChecked = event.target.checked;
+        // console.log(`Checkbox ${id} is checked: ${isChecked}`);
+        if(isChecked){
+            document.getElementById("update_btn").innerHTML="Delete"
+            document.getElementById("update_btn").id="del"+checkid
+        }else{
+            no_change="Update Cart"
+            document.getElementById("update_btn").innerHTML=no_change
+        }
+    }
    
 </script>
 {% endblock %}

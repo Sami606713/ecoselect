@@ -95,7 +95,11 @@ for(const item in cart){
                     <div>
                         <input type="number" id="pr${item}" class="w-16 border rounded p-1" value="${quantity}" min="1" max="5">
                     </div>
-                    <div id=total${item}>${price*quantity}</div>
+                    <div id=total${item}>
+                    ${price*quantity}
+                        
+                    <input type="checkbox" id="checkbox${item}" class="ml-auto" onchange=PerformAction(checkbox${item}z)>
+                    </div>
                 </div>
                   ` 
                 
@@ -116,7 +120,7 @@ try {
 
 
 $(".update").click(function(){
-    console.log("update clicked");
+    // console.log("update clicked");
     for(let item in cart){
         console.log(document.getElementById("pr"+item).value);
         let new_quantity=document.getElementById("pr"+item).value
@@ -148,4 +152,8 @@ $(".update").click(function(){
     });
 </script>
 
+<script>
+    cart=JSON.parse(localStorage.getItem("cart"))
+   
+</script>
 {% endblock %}

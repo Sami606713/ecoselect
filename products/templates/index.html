@@ -78,7 +78,7 @@
           <h3 class="mt-1" id="price{{item.id}}" style="color: rgb(255, 102, 0);">{{item.price}}</h3>
         </div>
         {% if user.is_authenticated %}
-        <div class="mt-4" id="bt">
+        <div class="mt-4" id="div{{item.id}}">
           <button class="bg-yellow text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4 cart" id="{{item.id}}">Add to cart
           </button>
         </div>
@@ -104,21 +104,29 @@
 {% block js %}  
 <script>  
   $('.cart').click(function() {
-    cart=localStorage.getItem("cart")
+    cart=JSON.parse(localStorage.getItem("cart"))
     var idstr=this.id.toString();
     quantity=1
     name=document.getElementById("prname"+idstr).innerHTML
     price=document.getElementById("price"+idstr).innerHTML
     image=document.getElementById("image"+idstr).src
-
+    // update_cart(cart)
     update(idstr,name,quantity,price,image)
   //   update_btn(idstr)
     
   });
 </script>
 <script>
-//  cart=localStorage.getItem("cart")
-//  console.log(Object.keys(cart));
+function update_cart(cart) {
+  for(var item in cart){
+    // console.log(item);
+    console.log(document.getElementById("div"+item).innerHTML)
+    document.getElementById("div"+item).innerHTML=`
+    <button class="bg-yellow text-black py-2 hover:text-white px-4 rounded hover:bg-blue-600 border border-black-500 p-4 cart" >carting
+     </button>
+    `
+  }
+}
   
 </script>
 {% endblock %}

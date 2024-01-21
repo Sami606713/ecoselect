@@ -159,10 +159,13 @@ $(".update").click(function(){
         // console.log(`Checkbox ${id} is checked: ${isChecked}`);
         if(isChecked){
             document.getElementById("update_btn").innerHTML="Delete"
-            document.getElementById("update_btn").id="del"+checkid
+            document.getElementById("update_btn").classList.remove("update")
+            document.getElementById("update_btn").classList.add("delete-btn");
         }else{
             no_change="Update Cart"
             document.getElementById("update_btn").innerHTML=no_change
+            document.getElementById("update_btn").classList.remove("delete-btn")
+            document.getElementById("update_btn").classList.add("update")
         }
     }
    

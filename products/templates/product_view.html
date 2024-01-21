@@ -58,9 +58,6 @@
             <!-- Add to cart btn -->
             <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-green-500 mx-2 cart" id={{fetch_product.id}}>Add to cart</button>
         </div>
-
-        <!-- Buy Now Button -->
-        <!-- <button class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" id="single_item">Buy Now</button> -->
     </div>
 </div>
 {%endblock %}
@@ -79,19 +76,6 @@ for (let i=0;i<image.length;i++) {
 })
 }
 
-</script>
-<script>
-$(".buy").click(function () {
-    console.log("buy clicked");
-    let idstr=this.id.toString()
-    name=document.getElementById("name").innerHTML
-    price=document.getElementById("price").innerHTML
-    quantity=parseInt(document.getElementById("qty").innerHTML)
-    img=document.getElementById("main").src
-        // call the update function
-    // update(idstr,name,quantity,price,img)
-        // console.log(idstr,name,quantity,price,img);
-})
 </script>
 
 <!--Handling quantity -->
@@ -121,4 +105,5 @@ $("#plus").click(function () {
         // console.log(idstr);
     });
 </script>
+
 {% endblock %}

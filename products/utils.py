@@ -1,5 +1,8 @@
 from products.models import Address,Order
 import json
+def calculate_total(value):
+    pass
+
 def fetch_product():
      # fetch all the address
     address=Address.objects.all()

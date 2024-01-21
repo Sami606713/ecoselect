@@ -218,6 +218,13 @@ def create_checkout_session(request):
         domain_url = 'http://localhost:8000/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
+            # Create a PaymentIntent
+            payment_intent = stripe.PaymentIntent.create(
+                amount=1000000,
+                currency='PKR',
+                # Additional parameters as needed
+            )
+
             checkout_session = stripe.checkout.Session.create(
                 # success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
                  success_url=domain_url + '/product/success/',

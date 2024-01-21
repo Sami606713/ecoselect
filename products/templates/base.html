@@ -14,8 +14,6 @@
     <script defer src="https://use.fontawesome.com/releases/v6.4.0/js/all.js"></script>
     <!-- Add this in the head of your HTML file -->
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-
-    <!-- <script src="{% static 'products/js/shoping_cart.js'%}" defer></script> -->
     <script src="{% static 'products/js/main.js'%}" defer></script>
     <link href="{% static 'products/css/contacts.css'%}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'products/css/new_signup.css' %}">
@@ -23,51 +21,48 @@
     <title>{% block title %}  {% endblock %}</title>
 </head>
 <body class="bg-white-500">
-  <!-- Navbar -->
-  <header class="text-gray-400 bg-gray-900 body-font">
-      <div class="container mx-auto flex flex-wrap p-1 flex-col md:flex-row items-center">
-          <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-                  <path
-                      d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-              </svg>
-              <span class="ml-3 text-xl">EcoSelect</span>
-          </a>
-          <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700   flex flex-wrap items-center text-base justify-center">
-              <a class="mr-5 hover:text-white" href="/">Home</a>
-              <a class="mr-5 hover:text-white" href="/product/about">About</a>
-              <a class="mr-5 hover:text-white" href="/product/contact">Contact</a>
-              {% if user.is_authenticated %}
-              <a class="mr-5 hover:text-white" id="signup" href="/product/log_out">Logout</a>
-              {% else %}
-              <a class="mr-5 hover:text-white" id="signup" href="/product/log_in">Login</a>
-              {% endif %}
-          </nav>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <!-- Navbar -->
+    <header class="text-gray-400 bg-gray-900 body-font">
+      <div class="container mx-auto flex flex-wrap p-2 md:p-4 flex-col md:flex-row items-center">
+        <a href="/" class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
+            viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+          <span class="ml-3 text-xl">EcoSelect</span>
+        </a>
+        <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700 flex flex-wrap items-center text-base justify-center">
+          <a href="/" class="mr-5 hover:text-white">Home</a>
+          <a href="/product/about" class="mr-5 hover:text-white">About</a>
+          <a href="/product/contact" class="mr-5 hover:text-white">Contact</a>
+          {% if user.is_authenticated %}
+          <a href="/product/log_out" class="mr-5 hover:text-white">Logout</a>
+          {% else %}
+          <a href="/product/log_in" class="mr-5 hover:text-white">Login</a>
+          {% endif %}
+        </nav>
+        <form class="flex items-center">
+          <input class="form-control me-2 p-2 border rounded" type="search" placeholder="Search" aria-label="Search">
           <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Search</button>
           {% if user.is_authenticated %}
-          <!-- <a href="/product/shoping_cart" data-popover-target="popover-user-profile" class="relative group bg-white text-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mx-2" id="CartButton">
-            <span id="cart" class="text-black hover:text-gray-400">0</span>
-          </a> -->
-          <div class="relative group">
-            <button class="bg-white text-black py-2 px-4 rounded hover:bg-gray-700 text-white font-bold mx-2" id="CartButton">
+          <div class="relative group ml-2">
+            <button class="bg-white text-black py-2 px-4 rounded hover:bg-gray-700 text-white font-bold" id="CartButton">
               <span id="cart" class="text-black hover:text-gray-400">0</span>
             </button>
-            <div class="popover hidden absolute bg-white border border-gray-300 p-2 rounded shadow-md mt-5 flex origin-top transform -translate-x-1/2 left-1/2">
-              <a href="/product/shoping_cart" class="flex-1 bg-white-500 text-black py-0 px-2 rounded hover:bg-gray-700 hover:text-white mx-2">View Cart</a>
-              <button class="flex-1 bg-white-500 text-black py-0 px-2 rounded hover:bg-gray-700 hover:text-white mx-2" id="clr" onclick=clearCart()>Clear Cart</button>
+            <div
+              class="popover hidden absolute bg-white border border-gray-300 p-2 rounded shadow-md mt-5 flex origin-top transform -translate-x-1/2 left-1/2">
+              <a href="/product/shoping_cart"
+                class="flex-1 bg-white-500 text-black py-0 px-2 rounded hover:bg-gray-700 hover:text-white mx-2">View
+                Cart</a>
+              <button class="flex-1 bg-white-500 text-black py-0 px-2 rounded hover:bg-gray-700 hover:text-white mx-2"
+                id="clr" onclick=clearCart()>Clear Cart</button>
             </div>
           </div>
-          
-          {% else %}
-          
           {% endif %}
         </form>
-      
-    </div>
-  </header>
+      </div>
+    </header>
 <!-- End of Navber -->
 <!-- Extend krni ha -->
 {% block body%}  {% endblock%}
@@ -161,6 +156,7 @@
     }
      document.getElementById("cart").innerHTML=Object.keys(cart).length
     </script>
+
     <script>
       var popover = document.querySelector(".popover");
   

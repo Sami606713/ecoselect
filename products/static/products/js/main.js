@@ -78,13 +78,11 @@ function update(id,name,quantity,price,img) {
     let ItemExist=false
     for(item in cart){
         if (item==id) {
-            console.log("id match");
-            alert(`${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
-            `);
+            // console.log("id match");   
+            `${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
+            `;
             ItemExist=true
             break
-        }else{
-            console.log("id not match");
         }
 }
     // Add the item

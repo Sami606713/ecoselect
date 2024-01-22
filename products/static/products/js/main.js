@@ -104,7 +104,6 @@ function viewCart() {
     console.log("View Cart clicked");
     window.location="/product/shoping_cart"
 }
-
 function clearCart() {
     // Add logic for clearing cart
     // console.log("Clear Cart clicked");

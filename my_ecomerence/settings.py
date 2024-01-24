@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
+import boto3
+from storages.backends.s3boto3 import S3Boto3Storage
 from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +44,6 @@ INSTALLED_APPS = [
     "djongo",
     'rest_framework',
     "stripe",
-   "payments",
 ]
 
 
@@ -150,19 +152,21 @@ REST_FRAMEWORK = {
     ),
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'your_smtp_server'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sami606713@gmail.com'
-EMAIL_HOST_PASSWORD = 'hfwz fmgz qdha hbzt'
+# AWS settings
+AWS_ACCESS_KEY_ID = 'AKIAVMPWBP6JYFKWM7GJ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'imagegalery'
+AWS_S3_REGION_NAME = 'eu-north-1'
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
+# Static and media files storage settings
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'products.storage_backends.MediaStorage'
 
-AUTHENTICATION_BACKENDS = [
-    'social_core.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
-]
-
+# Additional settings
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
 
 
 

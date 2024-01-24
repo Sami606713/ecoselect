@@ -79,7 +79,7 @@ function update(id,name,quantity,price,img) {
     for(item in cart){
         if (item==id) {
             // console.log("id match");   
-            `${name} already exists. Current quantity is ${quantity}. Do you want to increase the quantity?
+            `${name} already exists. Current quantity is ${quantity}.
             `;
             ItemExist=true
             break
@@ -136,7 +136,3 @@ function senity_check() {
  
     });
  }
-
-
-
- 

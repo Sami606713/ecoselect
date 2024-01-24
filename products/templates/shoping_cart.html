@@ -172,11 +172,12 @@ $(".update").click(function(){
 
                 // Set the id
                 update_btn.setAttribute("id","delete")
-
+                
+                
                 // fetch the item that enable the check
                 if (checkid instanceof HTMLElement && checkid.id) {
                     const itemId = checkid.id.replace('checkbox', ''); // Extract numeric part from id
-                    console.log("Item ID:", itemId);
+                    // console.log("Item ID:", itemId);
                     if(!item_id_list.includes(itemId)){
                         item_id_list.push(itemId)
                     }

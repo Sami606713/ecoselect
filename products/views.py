@@ -51,7 +51,7 @@ def index(request):
     for img in prod_img:
         if(img.product_id not in img_dic):
             img_dic[img.product_id]=img.image.url
-    print(set(img_dic.values()))
+    # print(set(img_dic.values()))
     # Nbr od slides we want to display
     n=len(product)
     nbr_of_slides=n//4 + math.ceil((n/4)-(n//4))

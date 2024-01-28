@@ -72,5 +72,3 @@ Visit http://localhost:8000 in your web browser.
 `ItemJson:` JSON representation of ordered items.
 ## Contributors
 Your Name (@Samiullah)
-
-E:\Root Folder\Programs\Python_Projects\Djanjo\ecomerence_env\README.md
